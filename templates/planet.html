@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ planet['nom'] }}</title>
+</head>
+<body>
+    <h1>{{ planet['nom'] }}</h1>
+    <p><strong>Type:</strong> {{ planet['type_predit'] }}</p>
+    <p><strong>Masse:</strong> {{ planet['masse'] }}</p>
+    <p><strong>Rayon:</strong> {{ planet['rayon'] }}</p>
+    <p><strong>Densité:</strong> {{ planet['densite'] }}</p>
+    <p><strong>Période Orbitale:</strong> {{ planet['periode_orbite'] }}</p>
+    <p><strong>Distance de l'étoile:</strong> {{ planet['distance_etoile'] }}</p>
+    <p><strong>Température d'équilibre:</strong> {{ planet['temperature_equilibre'] }}</p>
+    <a href="{{ url_for('index') }}">Retour à la liste</a>
+</body>
+</html>

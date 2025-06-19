@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Planètes</title>
+</head>
+<body>
+    <h1>Liste des Planètes</h1>
+    <ul>
+        {% for planet in planets %}
+            <li><a href="{{ url_for('planet', planet_name=planet['nom']) }}">{{ planet['nom'] }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
