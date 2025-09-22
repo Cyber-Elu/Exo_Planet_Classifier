@@ -5,6 +5,11 @@
   <title>Exoplanètes – classifications</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 2rem; }
+    .topbar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+    form.inline { display: inline-flex; gap: .5rem; align-items: center; }
+    input[type="text"], select { padding: .4rem .6rem; font-size: 1rem; }
+    button, .btn { padding: .45rem .8rem; background: #0b66c3; color: #fff; border: none; border-radius: 6px; text-decoration: none; cursor: pointer; }
+    .btn.secondary { background: #666; }
     table { border-collapse: collapse; width: 100%; }
     th, td { padding: .5rem; border-bottom: 1px solid #ddd; text-align: left; }
     a { text-decoration: none; color: #0b66c3; }
@@ -12,8 +17,28 @@
 </head>
 <body>
   <h1>Classifications des exoplanètes</h1>
+
+  <div class="topbar">
+    <form class="inline" action="/" method="get">
+      <input type="text" name="q" placeholder="Rechercher par nom…" value="{{ q or '' }}" />
+      <select name="type">
+        <option value="" {% if not type_filter %}selected{% endif %}>— Tous les types —</option>
+        <option value="Tellurique" {% if type_filter=='Tellurique' %}selected{% endif %}>Tellurique</option>
+        <option value="Gazeuse" {% if type_filter=='Gazeuse' %}selected{% endif %}>Gazeuse</option>
+      </select>
+      <button type="submit">Filtrer</button>
+      <a class="btn secondary" href="/">Réinitialiser</a>
+    </form>
+
+    <a class="btn" href="/add">+ Ajouter une planète</a>
+  </div>
+
   <table>
-    <thead><tr><th>Nom</th><th>Type</th><th>Masse</th><th>Rayon</th><th>Densité</th><th>Distance étoile (UA)</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Nom</th><th>Type</th><th>Masse</th><th>Rayon</th><th>Densité</th><th>Distance étoile (UA)</th>
+      </tr>
+    </thead>
     <tbody>
       {% for p in planets %}
         <tr>
@@ -24,6 +49,8 @@
           <td>{{ '%.2f'|format(p['densite'] or 0) }}</td>
           <td>{{ '%.3f'|format(p['distance_etoile'] or 0) }}</td>
         </tr>
+      {% else %}
+        <tr><td colspan="6">Aucune donnée ne correspond à votre recherche/filtre.</td></tr>
       {% endfor %}
     </tbody>
   </table>
