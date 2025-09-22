@@ -1,15 +1,31 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Liste des Planètes</title>
+  <meta charset="utf-8" />
+  <title>Exoplanètes – classifications</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: .5rem; border-bottom: 1px solid #ddd; text-align: left; }
+    a { text-decoration: none; color: #0b66c3; }
+  </style>
 </head>
 <body>
-    <h1>Liste des Planètes</h1>
-    <ul>
-        {% for planet in planets %}
-            <li><a href="{{ url_for('planet', planet_name=planet['nom']) }}">{{ planet['nom'] }}</a></li>
-        {% endfor %}
-    </ul>
+  <h1>Classifications des exoplanètes</h1>
+  <table>
+    <thead><tr><th>Nom</th><th>Type</th><th>Masse</th><th>Rayon</th><th>Densité</th><th>Distance étoile (UA)</th></tr></thead>
+    <tbody>
+      {% for p in planets %}
+        <tr>
+          <td><a href="/planet/{{ p['nom'] }}">{{ p['nom'] }}</a></td>
+          <td>{{ p['type_predit'] }}</td>
+          <td>{{ '%.2f'|format(p['masse'] or 0) }}</td>
+          <td>{{ '%.2f'|format(p['rayon'] or 0) }}</td>
+          <td>{{ '%.2f'|format(p['densite'] or 0) }}</td>
+          <td>{{ '%.3f'|format(p['distance_etoile'] or 0) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
 </html>

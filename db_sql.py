@@ -1,27 +1,18 @@
-import sqlite3
+from sqlalchemy import create_engine, Column, Integer, Float, String
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-def create_database():
-    # connexion à la bdd ou creation si inexistante
-    conn = sqlite3.connect('exoplanetes.db')
-    cursor = conn.cursor()
+engine = create_engine("sqlite:///data/exoplanets.db", echo=False, future=True)
+Base = declarative_base()
 
-    # création des tables pour stocker les données
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS exoplanetes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nom TEXT,
-        masse REAL,
-        rayon REAL,
-        periode_orbite REAL,
-        distance_etoile REAL,
-        temperature_equilibre REAL,
-        date_decouverte TEXT
-    )
-    ''')
+class Planet(Base):
+    __tablename__ = "planet"
+    id = Column(Integer, primary_key=True)
+    name = Column(String, index=True)
+    pl_rade = Column(Float, nullable=False)
+    pl_bmasse = Column(Float, nullable=False)
+    pl_orbsmax = Column(Float, nullable=False)
 
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
 
-    conn.commit()
-    conn.close()
-
-if __name__ == "__main__":
-    create_database()
+def init_db():
+    Base.metadata.create_all(engine)

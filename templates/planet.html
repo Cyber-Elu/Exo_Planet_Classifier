@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{{ planet['nom'] }}</title>
+  <meta charset="utf-8" />
+  <title>{{ planet['nom'] }} – détails</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    a { text-decoration: none; color: #0b66c3; }
+    .card { border: 1px solid #ddd; padding: 1rem; border-radius: 8px; max-width: 600px; }
+    .row { display: flex; justify-content: space-between; margin: .25rem 0; }
+  </style>
 </head>
 <body>
-    <h1>{{ planet['nom'] }}</h1>
-    <p><strong>Type:</strong> {{ planet['type_predit'] }}</p>
-    <p><strong>Masse:</strong> {{ planet['masse'] }}</p>
-    <p><strong>Rayon:</strong> {{ planet['rayon'] }}</p>
-    <p><strong>Densité:</strong> {{ planet['densite'] }}</p>
-    <p><strong>Période Orbitale:</strong> {{ planet['periode_orbite'] }}</p>
-    <p><strong>Distance de l'étoile:</strong> {{ planet['distance_etoile'] }}</p>
-    <p><strong>Température d'équilibre:</strong> {{ planet['temperature_equilibre'] }}</p>
-    <a href="{{ url_for('index') }}">Retour à la liste</a>
+  <a href="/">← Retour</a>
+  <h1>{{ planet['nom'] }}</h1>
+  <div class="card">
+    <div class="row"><strong>Type prédit</strong><span>{{ planet['type_predit'] }}</span></div>
+    <div class="row"><strong>Masse (M⊕)</strong><span>{{ '%.2f'|format(planet['masse'] or 0) }}</span></div>
+    <div class="row"><strong>Rayon (R⊕)</strong><span>{{ '%.2f'|format(planet['rayon'] or 0) }}</span></div>
+    <div class="row"><strong>Densité (rel.)</strong><span>{{ '%.2f'|format(planet['densite'] or 0) }}</span></div>
+    <div class="row"><strong>Distance étoile (UA)</strong><span>{{ '%.3f'|format(planet['distance_etoile'] or 0) }}</span></div>
+  </div>
 </body>
 </html>
